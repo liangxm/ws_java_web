@@ -124,8 +124,8 @@ public class HttpRequest {
 	
 	public static void main(String[] args) {
         //发送 GET 请求
-        String s=HttpRequest.sendGet("https://www.google.com/", "gws_rd=ssl");
-        System.out.println(s);
+        String s=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=");
+        System.out.println("body:"+s);
         
         //发送 POST 请求
         //String sr=HttpRequest.sendPost("http://localhost:6144/Home/RequestPostString", "key=123&v=456");

@@ -57,7 +57,7 @@ public class DataSource {
 	
 	private Statement generateStatement() {
 		try {
-			conn = ConnectionPool.getConnection();
+			conn = ConnectionPool.getInstance().getConnection();
 			if (conn != null) {
 				stat = conn.createStatement();
 			}
@@ -69,8 +69,12 @@ public class DataSource {
 		return stat;
 	}
 	
-	public static void close(ResultSet rs){
+	public static void close(Connection conn,Statement stat,ResultSet rs){
 		try {
+			if(conn != null)
+				conn.close();
+			if(stat != null)
+				stat.close();
 			if(rs != null) 
 				rs.close();
 		} catch (SQLException e) {

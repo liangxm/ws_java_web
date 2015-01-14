@@ -67,7 +67,7 @@ public class ConnectionPool {
 		ConnectionPool.maxInstances = maxInstances;
 	}
 	
-	public static Connection getConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		synchronized (connectionPoolList) {
 			Connection thisConnection = removeObject();
 			
@@ -108,7 +108,7 @@ public class ConnectionPool {
 	
 	private static Connection removeObject() {
 		if (connectionPoolList.size() > 0) {
-			poolClass = connectionPoolList.get(ConnectionPool.getSize());
+			poolClass = connectionPoolList.get(ConnectionPool.getSize() - 1);
 			connectionPoolList.remove(ConnectionPool.getSize() - 1);
 			ConnectionPool.setInstanceCount(instanceCount - 1);
 			return poolClass;

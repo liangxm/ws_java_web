@@ -1,11 +1,12 @@
-package com.lxm.lottery.extractor.test;
+package com.lxm.lottery.service;
 
+import java.util.Calendar;
 import java.util.Iterator;
+import java.util.TimerTask;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Test;
 
 import com.lxm.lottery.dao.MatchDAO;
 import com.lxm.lottery.dao.impl.MatchDAOImpl;
@@ -13,10 +14,28 @@ import com.lxm.lottery.exception.MatchDaoException;
 import com.lxm.lottery.html.HttpRequest;
 import com.lxm.lottery.model.Match;
 
-public class JsonTest {
+public class ExtractorService extends TimerTask {
 
-	@Test
-	public void test1(){
+	private static final int C_SCHEDULE_HOUR = 0;
+	private static boolean isRunning = false;
+	
+	public ExtractorService() {
+	}
+
+	@Override
+	public void run() {
+		Calendar c = Calendar.getInstance();
+		if(!isRunning) {
+			if(C_SCHEDULE_HOUR == c.get(Calendar.HOUR_OF_DAY)) {
+				isRunning = true;
+				execute();
+				isRunning = false;
+			}else{
+			}
+		}
+	}
+	
+	private void execute(){
 		try {  
 			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=");
 			JSONObject jo = new JSONObject(loadData);
@@ -68,7 +87,6 @@ public class JsonTest {
             e.printStackTrace();  
         } catch (MatchDaoException e) {
 			e.printStackTrace();
-		}  
-		
+		}
 	}
 }

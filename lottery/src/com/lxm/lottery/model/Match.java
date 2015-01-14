@@ -4,11 +4,11 @@ import org.json.JSONArray;
 
 public class Match {
 
-	private String buyEndTime;
-	private String gid;
+	private Long buyEndTime;
+	private int gid;
 	private String guestName;
 	private String guestTeamURL;
-	private String hid;
+	private int hid;
 	private String hint;
 	private String hostName;
 	private String hostRankInfo;
@@ -17,34 +17,34 @@ public class Match {
 	private String leagueColor;
 	private String leagueName;
 	private String leagueURL;
-	private String lid;
+	private int lid;
 	private String matchCode;
-	private String matchDate;
-	private String mid;
+	private Long matchDate;
+	private int mid;
 	private JSONArray mixBidCounts;
 	private String mixBidScore;
 	private JSONArray mixHotCounts;
 	private JSONArray mixStatus;
 	private JSONArray singleMixStatus;
 	private JSONArray spTabMix;
-	private String startTime;
+	private Long startTime;
 	private int status;
 	private String visitRankInfo;
 	private String zxAnalysisURL;
 
-	public String getBuyEndTime() {
+	public Long getBuyEndTime() {
 		return buyEndTime;
 	}
 
-	public void setBuyEndTime(String buyEndTime) {
+	public void setBuyEndTime(Long buyEndTime) {
 		this.buyEndTime = buyEndTime;
 	}
 
-	public String getGid() {
+	public int getGid() {
 		return gid;
 	}
 
-	public void setGid(String gid) {
+	public void setGid(int gid) {
 		this.gid = gid;
 	}
 
@@ -64,11 +64,11 @@ public class Match {
 		this.guestTeamURL = guestTeamURL;
 	}
 
-	public String getHid() {
+	public int getHid() {
 		return hid;
 	}
 
-	public void setHid(String hid) {
+	public void setHid(int hid) {
 		this.hid = hid;
 	}
 
@@ -136,11 +136,11 @@ public class Match {
 		this.leagueURL = leagueURL;
 	}
 
-	public String getLid() {
+	public int getLid() {
 		return lid;
 	}
 
-	public void setLid(String lid) {
+	public void setLid(int lid) {
 		this.lid = lid;
 	}
 
@@ -152,19 +152,19 @@ public class Match {
 		this.matchCode = matchCode;
 	}
 
-	public String getMatchDate() {
+	public Long getMatchDate() {
 		return matchDate;
 	}
 
-	public void setMatchDate(String matchDate) {
+	public void setMatchDate(Long matchDate) {
 		this.matchDate = matchDate;
 	}
 
-	public String getMid() {
+	public int getMid() {
 		return mid;
 	}
 
-	public void setMid(String mid) {
+	public void setMid(int mid) {
 		this.mid = mid;
 	}
 
@@ -216,11 +216,11 @@ public class Match {
 		this.spTabMix = spTabMix;
 	}
 
-	public String getStartTime() {
+	public Long getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(String startTime) {
+	public void setStartTime(Long startTime) {
 		this.startTime = startTime;
 	}
 

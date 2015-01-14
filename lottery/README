@@ -1,0 +1,32 @@
+drop table `wangyi_match`;# MySQL 返回的查询结果为空 (即零行)。
+
+CREATE TABLE IF NOT EXISTS `wangyi_match` (
+	buyEndTime BIGINT UNSIGNED,
+	gid int,
+	guestName varchar(255),
+	guestTeamURL varchar(255),
+	hid int,
+	hint varchar(255),
+	hostName varchar(255),
+	hostRankInfo varchar(255),
+	hostTeamURL varchar(255),
+	isMyFocusOn tinyint(1),
+	leagueColor varchar(10),
+	leagueName varchar(255),
+	leagueURL varchar(255),
+	lid int,
+	matchCode varchar(255),
+	matchDate BIGINT UNSIGNED,
+	mid int,
+	mixBidCounts varchar(255),
+	mixBidScore varchar(255),
+	mixHotCounts varchar(255),
+	mixStatus varchar(255),
+	singleMixStatus varchar(255),
+	spTabMix varchar(255),
+	startTime BIGINT UNSIGNED,
+	status int,
+	visitRankInfo varchar(255),
+	zxAnalysisURL varchar(255),
+	PRIMARY KEY (matchCode)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;# MySQL 返回的查询结果为空 (即零行)。

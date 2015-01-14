@@ -15,5 +15,7 @@ public interface MatchDAO {
 	
 	public List<Match> findAll() throws MatchDaoException;
 	
+	public List<Match> findDaliyMatchs() throws MatchDaoException;
+	
 	public Match findByPrimaryKey(String pk) throws MatchDaoException;
 }

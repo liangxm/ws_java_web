@@ -29,4 +29,4 @@ CREATE TABLE IF NOT EXISTS `wangyi_match` (
 	visitRankInfo varchar(255),
 	zxAnalysisURL varchar(255),
 	PRIMARY KEY (matchCode)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;# MySQL 返回的查询结果为空 (即零行)。
+) ENGINE=Myisam DEFAULT CHARSET=utf8;# MySQL 返回的查询结果为空 (即零行)。

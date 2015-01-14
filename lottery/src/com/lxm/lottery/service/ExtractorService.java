@@ -1,6 +1,5 @@
 package com.lxm.lottery.service;
 
-import java.util.Calendar;
 import java.util.Iterator;
 import java.util.TimerTask;
 
@@ -16,42 +15,27 @@ import com.lxm.lottery.model.Match;
 
 public class ExtractorService extends TimerTask {
 
-	private static final int C_SCHEDULE_HOUR = 0;
-	private static boolean isRunning = false;
-	
-	public ExtractorService() {
-	}
-
 	@Override
 	public void run() {
-		Calendar c = Calendar.getInstance();
-		if(!isRunning) {
-			if(C_SCHEDULE_HOUR == c.get(Calendar.HOUR_OF_DAY)) {
-				isRunning = true;
-				execute();
-				isRunning = false;
-			}else{
-			}
-		}
-	}
-	
-	private void execute(){
-		try {  
-			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=");
+		try {
+			String loadData = HttpRequest
+					.sendGet(
+							"http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html",
+							"cache=1420787380503&betDate=");
 			JSONObject jo = new JSONObject(loadData);
-			//WYData data = new WYData();
-			//JsonHelper.toJavaBean(data, jo.toString());
-			//JSONObject obj = data.getMatchList();
+			// WYData data = new WYData();
+			// JsonHelper.toJavaBean(data, jo.toString());
+			// JSONObject obj = data.getMatchList();
 			JSONObject obj = jo.getJSONObject("matchList");
 			MatchDAO matchDao = new MatchDAOImpl();
-            @SuppressWarnings("unchecked")
-			Iterator<String> it = obj.keys();  
-            while (it.hasNext()) {  
-                String key = it.next();  
-                JSONObject value = obj.getJSONObject(key);  
-                Match match = new Match();
-                //JsonHelper.toJavaBean(match, value.toString());
-                match.setBuyEndTime(value.getLong("buyEndTime"));
+			@SuppressWarnings("unchecked")
+			Iterator<String> it = obj.keys();
+			while (it.hasNext()) {
+				String key = it.next();
+				JSONObject value = obj.getJSONObject(key);
+				Match match = new Match();
+				// JsonHelper.toJavaBean(match, value.toString());
+				match.setBuyEndTime(value.getLong("buyEndTime"));
 				match.setGid(value.getInt("gid"));
 				match.setGuestName(value.getString("guestName"));
 				match.setGuestTeamURL(value.getString("guestTeamURL"));
@@ -71,21 +55,23 @@ public class ExtractorService extends TimerTask {
 				match.setMixBidCounts(new JSONArray(value
 						.getString("mixBidCounts")));
 				match.setMixBidScore(value.getString("mixBidScore"));
-				match.setMixHotCounts(new JSONArray(value.getString("mixHotCounts")));
+				match.setMixHotCounts(new JSONArray(value
+						.getString("mixHotCounts")));
 				match.setMixStatus(new JSONArray(value.getString("mixStatus")));
-				match.setSingleMixStatus(new JSONArray(value.getString("singleMixStatus")));
+				match.setSingleMixStatus(new JSONArray(value
+						.getString("singleMixStatus")));
 				match.setSpTabMix(new JSONArray(value.getString("spTabMix")));
 				match.setStartTime(value.getLong("startTime"));
 				match.setStatus(value.getInt("status"));
 				match.setVisitRankInfo(value.getString("visitRankInfo"));
 				match.setZxAnalysisURL(value.getString("zxAnalysisURL"));
-                if(matchDao.findByPrimaryKey(match.getMatchCode())!=null)
-                	continue;
-                matchDao.insert(match);
-            }  
-        } catch (JSONException e) {  
-            e.printStackTrace();  
-        } catch (MatchDaoException e) {
+				if (matchDao.findByPrimaryKey(match.getMatchCode()) != null)
+					continue;
+				matchDao.insert(match);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (MatchDaoException e) {
 			e.printStackTrace();
 		}
 	}

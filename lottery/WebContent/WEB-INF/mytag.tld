@@ -36,5 +36,12 @@
          <name>formatDate</name>   
          <function-class>com.lxm.lottery.util.UFunction</function-class>   
          <function-signature>java.lang.String formatDate(java.lang.String,java.lang.Long)</function-signature>   
+     </function>
+     
+     <function>   
+         <description>get rate by category and type </description>   
+         <name>getHostRate</name>   
+         <function-class>com.lxm.lottery.util.UFunction</function-class>   
+         <function-signature>java.lang.String getHostRate(org.json.JSONArray,int,int)</function-signature>   
      </function> 
 </taglib>  

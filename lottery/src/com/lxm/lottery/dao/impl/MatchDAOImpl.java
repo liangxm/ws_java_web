@@ -23,7 +23,7 @@ public class MatchDAOImpl implements MatchDAO {
 	private static final String UPDATE = "";
 	private static final String DELETE = "delete from wangyi_match where matchCode = ";
 	private static final String SELECT_ALL = "select * from wangyi_match";
-	private static final String SELECT_DALIY = "select date_format(LEFT(matchCode,8),'%Y%m%d') from wangyi_match where date_format(LEFT(matchCode,8),'%Y%m%d')=date_format(current_date,'%Y%m%d')";
+	private static final String SELECT_DALIY = "select * from wangyi_match where date_format(LEFT(matchCode,8),'%Y%m%d')=date_format(current_date,'%Y%m%d')";
 	private static final String SELECT_BY_PK = "select * from wangyi_match where matchCode = ";
 
 	@Override

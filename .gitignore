@@ -1,0 +1,8 @@
+#ignore .test
+#.test
+#.gitignore
+#ignore obj and lib file
+*.[class]
+
+# ignore lottery classes files
+lottery/build

@@ -1,6 +1,7 @@
 package com.lxm.lottery.extractor.test;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +13,8 @@ import com.lxm.lottery.dao.impl.MatchDAOImpl;
 import com.lxm.lottery.exception.MatchDaoException;
 import com.lxm.lottery.html.HttpRequest;
 import com.lxm.lottery.model.Match;
+import com.lxm.lottery.service.MatchService;
+import com.lxm.lottery.service.impl.MatchServiceImpl;
 
 public class JsonTest {
 
@@ -70,5 +73,14 @@ public class JsonTest {
 			e.printStackTrace();
 		}  
 		
+	}
+	
+	@Test
+	public void test2(){
+		MatchService matchService = new MatchServiceImpl();
+		List<Match> list = matchService.getDaliyMatchList();
+		for(Match match:list){
+			System.out.println(match.getMatchCode());
+		}
 	}
 }

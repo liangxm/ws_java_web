@@ -1,7 +1,7 @@
 package com.lxm.lottery.jdbc;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -86,10 +86,11 @@ public class ConnectionPool {
 	
 	private static Connection createConnection() throws SQLException {
 		Properties props = new Properties();
-		FileInputStream fis = null;
+		InputStream fis = null;
         Connection newConnection = null;
         try {
-            fis = new FileInputStream("db.properties");
+        	fis=ConnectionPool.class.getClassLoader().getResourceAsStream("db.properties");
+            //fis = new FileInputStream("db.properties");
             props.load(fis);
  
             // load the Driver Class

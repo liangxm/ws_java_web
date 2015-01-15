@@ -23,6 +23,7 @@ public class MatchDAOImpl implements MatchDAO {
 	private static final String UPDATE = "";
 	private static final String DELETE = "delete from wangyi_match where matchCode = ";
 	private static final String SELECT_ALL = "select * from wangyi_match";
+	private static final String SELECT_DALIY = "select date_format(LEFT(matchCode,8),'%Y%m%d') from wangyi_match where date_format(LEFT(matchCode,8),'%Y%m%d')=date_format(current_date,'%Y%m%d')";
 	private static final String SELECT_BY_PK = "select * from wangyi_match where matchCode = ";
 
 	@Override
@@ -178,6 +179,54 @@ public class MatchDAOImpl implements MatchDAO {
 		}
 		DataSource.close(null, null, rs);
 		return match;
+	}
+
+	@Override
+	public List<Match> findDaliyMatchs() throws MatchDaoException {
+		List<Match> matchs = new ArrayList<Match>();
+		ResultSet rs = DataSource.getInstance().query(SELECT_DALIY);
+		if (rs != null) {
+			try {
+				while (rs.next()) {
+					Match match = new Match();
+					match.setBuyEndTime(rs.getLong("buyEndTime"));
+					match.setGid(rs.getInt("gid"));
+					match.setGuestName(rs.getString("guestName"));
+					match.setGuestTeamURL(rs.getString("guestTeamURL"));
+					match.setHid(rs.getInt("hid"));
+					match.setHint(rs.getString("hint"));
+					match.setHostName(rs.getString("hostName"));
+					match.setHostRankInfo(rs.getString("hostRankInfo"));
+					match.setHostTeamURL(rs.getString("hostTeamURL"));
+					match.setMyFocusOn(rs.getBoolean("isMyFocusOn"));
+					match.setLeagueColor(rs.getString("leagueColor"));
+					match.setLeagueName(rs.getString("leagueName"));
+					match.setLeagueURL(rs.getString("leagueURL"));
+					match.setLid(rs.getInt("lid"));
+					match.setMatchCode(rs.getString("matchCode"));
+					match.setMatchDate(rs.getLong("matchDate"));
+					match.setMid(rs.getInt("mid"));
+					match.setMixBidCounts(new JSONArray(rs
+							.getString("mixBidCounts")));
+					match.setMixBidScore(rs.getString("mixBidScore"));
+					match.setMixHotCounts(new JSONArray(rs.getString("mixHotCounts")));
+					match.setMixStatus(new JSONArray(rs.getString("mixStatus")));
+					match.setSingleMixStatus(new JSONArray(rs.getString("singleMixStatus")));
+					match.setSpTabMix(new JSONArray(rs.getString("spTabMix")));
+					match.setStartTime(rs.getLong("startTime"));
+					match.setStatus(rs.getInt("status"));
+					match.setVisitRankInfo(rs.getString("visitRankInfo"));
+					match.setZxAnalysisURL(rs.getString("zxAnalysisURL"));
+					matchs.add(match);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		DataSource.close(null, null, rs);
+		return matchs;
 	}
 
 }

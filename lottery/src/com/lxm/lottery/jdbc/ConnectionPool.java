@@ -1,6 +1,5 @@
 package com.lxm.lottery.jdbc;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -100,7 +99,7 @@ public class ConnectionPool {
             newConnection = DriverManager.getConnection(props.getProperty("DB_URL"),
                     props.getProperty("DB_USERNAME"),
                     props.getProperty("DB_PASSWORD"));
-        } catch (IOException | ClassNotFoundException | SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 		ConnectionPool.setInstanceCount(instanceCount + 1);

@@ -21,7 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <![endif]-->
    </head>
    <body>
-      <center><a href="<%=basePath%>/HallServlet">进入购彩大厅</a></center>
+      <center><a href="<%=basePath%>hallServlet">进入购彩大厅</a></center>
 
       <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
       <script src="libs/jquery/jquery.js"></script>

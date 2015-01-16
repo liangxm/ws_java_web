@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
-  <servlet>
-    <servlet-name>wyExtractor</servlet-name>
-    <servlet-class>com.lxm.lottery.servlet.WYExtractor</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>wyExtractor</servlet-name>
-    <url-pattern>/wyExtractor</url-pattern>
-  </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<servlet>
+		<servlet-name>wyExtractor</servlet-name>
+		<display-name>wyExtractor</display-name>
+		<description></description>
+		<servlet-class>com.lxm.lottery.servlet.WYExtractor</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>wyExtractor</servlet-name>
+		<url-pattern>/wyExtractor</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>hallServlet</servlet-name>
+		<display-name>hallServlet</display-name>
+		<description></description>
+		<servlet-class>com.lxm.lottery.servlet.HallServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hallServlet</servlet-name>
+		<url-pattern>/hallServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

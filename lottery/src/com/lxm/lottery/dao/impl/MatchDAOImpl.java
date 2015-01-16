@@ -12,8 +12,7 @@ import org.json.JSONException;
 
 import com.lxm.lottery.dao.MatchDAO;
 import com.lxm.lottery.exception.MatchDaoException;
-import com.lxm.lottery.jdbc.ConnectionPool;
-import com.lxm.lottery.jdbc.DataSource;
+import com.lxm.lottery.jdbc.DBConnection;
 import com.lxm.lottery.model.Match;
 
 public class MatchDAOImpl implements MatchDAO {
@@ -32,7 +31,7 @@ public class MatchDAOImpl implements MatchDAO {
 		Connection conn = null;
 		PreparedStatement ps = null;
 		try {
-			conn = ConnectionPool.getInstance().getConnection();
+			conn = DBConnection.getConnection();
 			ps = conn.prepareStatement(INSERT);
 			conn.setAutoCommit(false);
 			ps.setLong(1, match.getBuyEndTime());
@@ -67,7 +66,7 @@ public class MatchDAOImpl implements MatchDAO {
 		} catch (SQLException e) {
 			throw new MatchDaoException("get connection error! "+e.getMessage());
 		} finally {
-			DataSource.close(conn, ps, null);
+			DBConnection.close(conn, ps, null);
 		}
 		return result;
 	}
@@ -75,157 +74,187 @@ public class MatchDAOImpl implements MatchDAO {
 	@Override
 	public int update(String pk, Match match) throws MatchDaoException {
 		int result = -1;
-		result = DataSource.getInstance().update(UPDATE);
+		Connection conn = DBConnection.getConnection();
+		try {
+			result = conn.createStatement().executeUpdate(UPDATE);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBConnection.close(conn, null, null);
 		return result;
 	}
 
 	@Override
 	public int delete(String pk) throws MatchDaoException {
 		int result = -1;
-		result = DataSource.getInstance().update(DELETE+"'"+pk+"'");
+		Connection conn = DBConnection.getConnection();
+		try {
+			result = conn.createStatement().executeUpdate(DELETE+"'"+pk+"'");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		DBConnection.close(conn, null, null);
 		return result;
 	}
 
 	@Override
 	public List<Match> findAll() throws MatchDaoException {
 		List<Match> matchs = new ArrayList<Match>();
-		ResultSet rs = DataSource.getInstance().query(SELECT_ALL);
-		if (rs != null) {
-			try {
-				while (rs.next()) {
-					Match match = new Match();
-					match.setBuyEndTime(rs.getLong("buyEndTime"));
-					match.setGid(rs.getInt("gid"));
-					match.setGuestName(rs.getString("guestName"));
-					match.setGuestTeamURL(rs.getString("guestTeamURL"));
-					match.setHid(rs.getInt("hid"));
-					match.setHint(rs.getString("hint"));
-					match.setHostName(rs.getString("hostName"));
-					match.setHostRankInfo(rs.getString("hostRankInfo"));
-					match.setHostTeamURL(rs.getString("hostTeamURL"));
-					match.setMyFocusOn(rs.getBoolean("isMyFocusOn"));
-					match.setLeagueColor(rs.getString("leagueColor"));
-					match.setLeagueName(rs.getString("leagueName"));
-					match.setLeagueURL(rs.getString("leagueURL"));
-					match.setLid(rs.getInt("lid"));
-					match.setMatchCode(rs.getString("matchCode"));
-					match.setMatchDate(rs.getLong("matchDate"));
-					match.setMid(rs.getInt("mid"));
-					match.setMixBidCounts(new JSONArray(rs
-							.getString("mixBidCounts")));
-					match.setMixBidScore(rs.getString("mixBidScore"));
-					match.setMixHotCounts(new JSONArray(rs.getString("mixHotCounts")));
-					match.setMixStatus(new JSONArray(rs.getString("mixStatus")));
-					match.setSingleMixStatus(new JSONArray(rs.getString("singleMixStatus")));
-					match.setSpTabMix(new JSONArray(rs.getString("spTabMix")));
-					match.setStartTime(rs.getLong("startTime"));
-					match.setStatus(rs.getInt("status"));
-					match.setVisitRankInfo(rs.getString("visitRankInfo"));
-					match.setZxAnalysisURL(rs.getString("zxAnalysisURL"));
-					matchs.add(match);
+		Connection conn = DBConnection.getConnection();
+		ResultSet rs=null;
+		try {
+			rs = conn.createStatement().executeQuery(SELECT_ALL);
+			if (rs != null) {
+				try {
+					while (rs.next()) {
+						Match match = new Match();
+						match.setBuyEndTime(rs.getLong("buyEndTime"));
+						match.setGid(rs.getInt("gid"));
+						match.setGuestName(rs.getString("guestName"));
+						match.setGuestTeamURL(rs.getString("guestTeamURL"));
+						match.setHid(rs.getInt("hid"));
+						match.setHint(rs.getString("hint"));
+						match.setHostName(rs.getString("hostName"));
+						match.setHostRankInfo(rs.getString("hostRankInfo"));
+						match.setHostTeamURL(rs.getString("hostTeamURL"));
+						match.setMyFocusOn(rs.getBoolean("isMyFocusOn"));
+						match.setLeagueColor(rs.getString("leagueColor"));
+						match.setLeagueName(rs.getString("leagueName"));
+						match.setLeagueURL(rs.getString("leagueURL"));
+						match.setLid(rs.getInt("lid"));
+						match.setMatchCode(rs.getString("matchCode"));
+						match.setMatchDate(rs.getLong("matchDate"));
+						match.setMid(rs.getInt("mid"));
+						match.setMixBidCounts(new JSONArray(rs
+								.getString("mixBidCounts")));
+						match.setMixBidScore(rs.getString("mixBidScore"));
+						match.setMixHotCounts(new JSONArray(rs.getString("mixHotCounts")));
+						match.setMixStatus(new JSONArray(rs.getString("mixStatus")));
+						match.setSingleMixStatus(new JSONArray(rs.getString("singleMixStatus")));
+						match.setSpTabMix(new JSONArray(rs.getString("spTabMix")));
+						match.setStartTime(rs.getLong("startTime"));
+						match.setStatus(rs.getInt("status"));
+						match.setVisitRankInfo(rs.getString("visitRankInfo"));
+						match.setZxAnalysisURL(rs.getString("zxAnalysisURL"));
+						matchs.add(match);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
-		DataSource.close(null, null, rs);
+		DBConnection.close(conn, null, rs);
 		return matchs;
 	}
 
 	@Override
 	public Match findByPrimaryKey(String pk) throws MatchDaoException {
 		Match match = null;
-		ResultSet rs = DataSource.getInstance().query(SELECT_BY_PK+"'"+pk+"'");
-		if (rs != null) {
-			try {
-				while (rs.next()) {
-					match = new Match();
-					match.setBuyEndTime(rs.getLong("buyEndTime"));
-					match.setGid(rs.getInt("gid"));
-					match.setGuestName(rs.getString("guestName"));
-					match.setGuestTeamURL(rs.getString("guestTeamURL"));
-					match.setHid(rs.getInt("hid"));
-					match.setHint(rs.getString("hint"));
-					match.setHostName(rs.getString("hostName"));
-					match.setHostRankInfo(rs.getString("hostRankInfo"));
-					match.setHostTeamURL(rs.getString("hostTeamURL"));
-					match.setMyFocusOn(rs.getBoolean("isMyFocusOn"));
-					match.setLeagueColor(rs.getString("leagueColor"));
-					match.setLeagueName(rs.getString("leagueName"));
-					match.setLeagueURL(rs.getString("leagueURL"));
-					match.setLid(rs.getInt("lid"));
-					match.setMatchCode(rs.getString("matchCode"));
-					match.setMatchDate(rs.getLong("matchDate"));
-					match.setMid(rs.getInt("mid"));
-					match.setMixBidCounts(new JSONArray(rs
-							.getString("mixBidCounts")));
-					match.setMixBidScore(rs.getString("mixBidScore"));
-					match.setMixHotCounts(new JSONArray(rs.getString("mixHotCounts")));
-					match.setMixStatus(new JSONArray(rs.getString("mixStatus")));
-					match.setSingleMixStatus(new JSONArray(rs.getString("singleMixStatus")));
-					match.setSpTabMix(new JSONArray(rs.getString("spTabMix")));
-					match.setStartTime(rs.getLong("startTime"));
-					match.setStatus(rs.getInt("status"));
-					match.setVisitRankInfo(rs.getString("visitRankInfo"));
-					match.setZxAnalysisURL(rs.getString("zxAnalysisURL"));
+		Connection conn = DBConnection.getConnection();
+		ResultSet rs = null;
+		try {
+			rs = conn.createStatement().executeQuery(SELECT_BY_PK+"'"+pk+"'");
+			if (rs != null) {
+				try {
+					while (rs.next()) {
+						match = new Match();
+						match.setBuyEndTime(rs.getLong("buyEndTime"));
+						match.setGid(rs.getInt("gid"));
+						match.setGuestName(rs.getString("guestName"));
+						match.setGuestTeamURL(rs.getString("guestTeamURL"));
+						match.setHid(rs.getInt("hid"));
+						match.setHint(rs.getString("hint"));
+						match.setHostName(rs.getString("hostName"));
+						match.setHostRankInfo(rs.getString("hostRankInfo"));
+						match.setHostTeamURL(rs.getString("hostTeamURL"));
+						match.setMyFocusOn(rs.getBoolean("isMyFocusOn"));
+						match.setLeagueColor(rs.getString("leagueColor"));
+						match.setLeagueName(rs.getString("leagueName"));
+						match.setLeagueURL(rs.getString("leagueURL"));
+						match.setLid(rs.getInt("lid"));
+						match.setMatchCode(rs.getString("matchCode"));
+						match.setMatchDate(rs.getLong("matchDate"));
+						match.setMid(rs.getInt("mid"));
+						match.setMixBidCounts(new JSONArray(rs
+								.getString("mixBidCounts")));
+						match.setMixBidScore(rs.getString("mixBidScore"));
+						match.setMixHotCounts(new JSONArray(rs.getString("mixHotCounts")));
+						match.setMixStatus(new JSONArray(rs.getString("mixStatus")));
+						match.setSingleMixStatus(new JSONArray(rs.getString("singleMixStatus")));
+						match.setSpTabMix(new JSONArray(rs.getString("spTabMix")));
+						match.setStartTime(rs.getLong("startTime"));
+						match.setStatus(rs.getInt("status"));
+						match.setVisitRankInfo(rs.getString("visitRankInfo"));
+						match.setZxAnalysisURL(rs.getString("zxAnalysisURL"));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
-		DataSource.close(null, null, rs);
+		DBConnection.close(conn, null, rs);
 		return match;
 	}
 
 	@Override
 	public List<Match> findDaliyMatchs() throws MatchDaoException {
 		List<Match> matchs = new ArrayList<Match>();
-		ResultSet rs = DataSource.getInstance().query(SELECT_DALIY);
-		if (rs != null) {
-			try {
-				while (rs.next()) {
-					Match match = new Match();
-					match.setBuyEndTime(rs.getLong("buyEndTime"));
-					match.setGid(rs.getInt("gid"));
-					match.setGuestName(rs.getString("guestName"));
-					match.setGuestTeamURL(rs.getString("guestTeamURL"));
-					match.setHid(rs.getInt("hid"));
-					match.setHint(rs.getString("hint"));
-					match.setHostName(rs.getString("hostName"));
-					match.setHostRankInfo(rs.getString("hostRankInfo"));
-					match.setHostTeamURL(rs.getString("hostTeamURL"));
-					match.setMyFocusOn(rs.getBoolean("isMyFocusOn"));
-					match.setLeagueColor(rs.getString("leagueColor"));
-					match.setLeagueName(rs.getString("leagueName"));
-					match.setLeagueURL(rs.getString("leagueURL"));
-					match.setLid(rs.getInt("lid"));
-					match.setMatchCode(rs.getString("matchCode"));
-					match.setMatchDate(rs.getLong("matchDate"));
-					match.setMid(rs.getInt("mid"));
-					match.setMixBidCounts(new JSONArray(rs
-							.getString("mixBidCounts")));
-					match.setMixBidScore(rs.getString("mixBidScore"));
-					match.setMixHotCounts(new JSONArray(rs.getString("mixHotCounts")));
-					match.setMixStatus(new JSONArray(rs.getString("mixStatus")));
-					match.setSingleMixStatus(new JSONArray(rs.getString("singleMixStatus")));
-					match.setSpTabMix(new JSONArray(rs.getString("spTabMix")));
-					match.setStartTime(rs.getLong("startTime"));
-					match.setStatus(rs.getInt("status"));
-					match.setVisitRankInfo(rs.getString("visitRankInfo"));
-					match.setZxAnalysisURL(rs.getString("zxAnalysisURL"));
-					matchs.add(match);
+		Connection conn = DBConnection.getConnection();
+		ResultSet rs = null;
+		try {
+			rs = conn.createStatement().executeQuery(SELECT_DALIY);
+			if (rs != null) {
+				try {
+					while (rs.next()) {
+						Match match = new Match();
+						match.setBuyEndTime(rs.getLong("buyEndTime"));
+						match.setGid(rs.getInt("gid"));
+						match.setGuestName(rs.getString("guestName"));
+						match.setGuestTeamURL(rs.getString("guestTeamURL"));
+						match.setHid(rs.getInt("hid"));
+						match.setHint(rs.getString("hint"));
+						match.setHostName(rs.getString("hostName"));
+						match.setHostRankInfo(rs.getString("hostRankInfo"));
+						match.setHostTeamURL(rs.getString("hostTeamURL"));
+						match.setMyFocusOn(rs.getBoolean("isMyFocusOn"));
+						match.setLeagueColor(rs.getString("leagueColor"));
+						match.setLeagueName(rs.getString("leagueName"));
+						match.setLeagueURL(rs.getString("leagueURL"));
+						match.setLid(rs.getInt("lid"));
+						match.setMatchCode(rs.getString("matchCode"));
+						match.setMatchDate(rs.getLong("matchDate"));
+						match.setMid(rs.getInt("mid"));
+						match.setMixBidCounts(new JSONArray(rs
+								.getString("mixBidCounts")));
+						match.setMixBidScore(rs.getString("mixBidScore"));
+						match.setMixHotCounts(new JSONArray(rs.getString("mixHotCounts")));
+						match.setMixStatus(new JSONArray(rs.getString("mixStatus")));
+						match.setSingleMixStatus(new JSONArray(rs.getString("singleMixStatus")));
+						match.setSpTabMix(new JSONArray(rs.getString("spTabMix")));
+						match.setStartTime(rs.getLong("startTime"));
+						match.setStatus(rs.getInt("status"));
+						match.setVisitRankInfo(rs.getString("visitRankInfo"));
+						match.setZxAnalysisURL(rs.getString("zxAnalysisURL"));
+						matchs.add(match);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
-		DataSource.close(null, null, rs);
+		DBConnection.close(conn, null, rs);
 		return matchs;
 	}
 

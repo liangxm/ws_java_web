@@ -1,11 +1,15 @@
 package com.lxm.lottery.service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.TimerTask;
 
+import org.apache.http.client.methods.HttpGet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.apache.http.NameValuePair;
 
 import com.lxm.lottery.dao.MatchDAO;
 import com.lxm.lottery.dao.impl.MatchDAOImpl;
@@ -18,6 +22,11 @@ public class ExtractorService extends TimerTask {
 	@Override
 	public void run() {
 		try {
+			String url = "http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html";
+			//Get的URL 
+			HttpGet httpget = new HttpGet(url);
+			//建立HttpPost对象
+			List<NameValuePair> params=new ArrayList<NameValuePair>();
 			String loadData = HttpRequest
 					.sendGet(
 							"http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html",

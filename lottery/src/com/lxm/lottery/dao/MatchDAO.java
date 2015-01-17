@@ -7,15 +7,20 @@ import com.lxm.lottery.model.Match;
 
 public interface MatchDAO {
 
-	public int insert(Match match) throws MatchDaoException;
+	public abstract int insert(Match paramMatch) throws MatchDaoException;
 
-	public int update(String pk, Match match) throws MatchDaoException;
-	
-	public int delete(String pk) throws MatchDaoException;
-	
-	public List<Match> findAll() throws MatchDaoException;
-	
-	public List<Match> findDaliyMatchs() throws MatchDaoException;
-	
-	public Match findByPrimaryKey(String pk) throws MatchDaoException;
+	public abstract int update(Match paramMatch) throws MatchDaoException;
+
+	public abstract int delete(String paramString) throws MatchDaoException;
+
+	public abstract List<Match> findAll() throws MatchDaoException;
+
+	public abstract List<Match> findDaliyMatchs() throws MatchDaoException;
+
+	public abstract List<Match> findYesterdayMatchs() throws MatchDaoException;
+
+	public abstract Match findByPrimaryKey(String paramString)
+			throws MatchDaoException;
+
+	public abstract void release();
 }

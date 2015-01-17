@@ -12,11 +12,11 @@ import com.sina.sae.util.SaeUserInfo;
 public class DBConnection {
 	
 	private static final String DB_DRIVER_CLASS = "com.mysql.jdbc.Driver";
-	private static final String DB_URL = "jdbc:mysql://r.rdc.sae.sina.com.cn:3307/app_lxmlottery";
+	private static final String DB_URL = "jdbc:mysql://w.rdc.sae.sina.com.cn:3307/app_lxmlottery";
 	private static final String DB_USERNAME = SaeUserInfo.getAccessKey();
 	private static final String DB_PASSWORD = SaeUserInfo.getSecretKey();;
 	
-/*    public static Connection getConnection() {
+    public static Connection getConnection() {
         Connection con = null;
         try {
             // load the Driver Class
@@ -28,9 +28,9 @@ public class DBConnection {
             e.printStackTrace();
         }
         return con;
-    }*/
+    }
     
-	public static Connection getConnection() {
+/*	public static Connection getConnection() {
 		Properties props = new Properties();
 		InputStream fis = null;
         Connection newConnection = null;
@@ -50,7 +50,7 @@ public class DBConnection {
             e.printStackTrace();
         }
 		return newConnection;
-	}
+	}*/
     
     public static void close(Connection conn, Statement stat, ResultSet rs) {
 			try {

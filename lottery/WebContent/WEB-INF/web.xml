@@ -3,9 +3,20 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
+	
+    <welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+    
 	<servlet>
 		<servlet-name>wyExtractor</servlet-name>
 		<servlet-class>com.lxm.lottery.servlet.WYExtractor</servlet-class>
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>wyExtractor</servlet-name>
@@ -19,5 +30,14 @@
 	<servlet-mapping>
 		<servlet-name>hallServlet</servlet-name>
 		<url-pattern>/hallServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>yesterdayServlet</servlet-name>
+		<servlet-class>com.lxm.lottery.servlet.YesterdayServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>yesterdayServlet</servlet-name>
+		<url-pattern>/yesterdayServlet</url-pattern>
 	</servlet-mapping>
 </web-app>

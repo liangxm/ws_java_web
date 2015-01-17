@@ -1,5 +1,6 @@
 package com.lxm.lottery.service.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -159,6 +160,55 @@ public class MatchServiceImpl implements MatchService {
 			this.matchDao.release();
 		}
 		return matchList;
+	}
+
+	@Override
+	public List<Match> getMatchListByDate(String dateStr) {
+		List<Match> matchList = null;
+		try {
+			matchList = this.matchDao.findMatchsByDate(dateStr);
+		} catch (MatchDaoException e) {
+			e.printStackTrace();
+		} finally {
+			this.matchDao.release();
+		}
+		return matchList;
+	}
+
+	@Override
+	public List<Match> getDaliyRecommend(String dateStr) {
+		List<Match> matchList = null;
+		List<Match> recommendList = null;
+		try {
+			if(dateStr!=null)
+				matchList = this.matchDao.findMatchsByDate(dateStr);
+			else
+				matchList = this.matchDao.findDaliyMatchs();
+			recommendList = new ArrayList<Match>();
+			for(Match match:matchList){
+				JSONArray spTabMix = match.getSpTabMix();
+				double guestRate1 = spTabMix.getJSONArray(0).getDouble(0);
+				double hostRate1 = spTabMix.getJSONArray(0).getDouble(1);
+				
+				double guestRate2 = spTabMix.getJSONArray(2).getDouble(1);
+				double hostRate2 = spTabMix.getJSONArray(2).getDouble(0);
+				//主胜
+				if(hostRate1<guestRate1 && hostRate2<guestRate2){
+					match.setZxAnalysisURL("88888888");
+					recommendList.add(match);
+				}else if(hostRate1>guestRate1 && hostRate2>guestRate2){//主负
+					match.setZxAnalysisURL("4444");
+					recommendList.add(match);
+				}
+			}
+		} catch (MatchDaoException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} finally {
+			this.matchDao.release();
+		}
+		return recommendList;
 	}
 
 }

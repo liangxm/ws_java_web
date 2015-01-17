@@ -345,6 +345,65 @@ public class MatchDAOImpl implements MatchDAO {
 
 		return matchs;
 	}
+	
+	public List<Match> findMatchsByDate(String dateStr) throws MatchDaoException {
+		List<Match> matchs = new ArrayList<Match>();
+		try {
+			this.conn = DBConnection.getConnection();
+			this.rs = this.conn.createStatement().executeQuery("select * from wangyi_match where date_format(LEFT(matchCode,8),'%Y%m%d')=date_format('"+dateStr+"','%Y%m%d')");
+			if (this.rs != null)
+				try {
+					while (this.rs.next()) {
+						Match match = new Match();
+						match.setBuyEndTime(Long.valueOf(this.rs
+								.getLong("buyEndTime")));
+						match.setGid(this.rs.getInt("gid"));
+						match.setGuestName(this.rs.getString("guestName"));
+						match.setGuestTeamURL(this.rs.getString("guestTeamURL"));
+						match.setHid(this.rs.getInt("hid"));
+						match.setHint(this.rs.getString("hint"));
+						match.setHostName(this.rs.getString("hostName"));
+						match.setHostRankInfo(this.rs.getString("hostRankInfo"));
+						match.setHostTeamURL(this.rs.getString("hostTeamURL"));
+						match.setMyFocusOn(this.rs.getBoolean("isMyFocusOn"));
+						match.setLeagueColor(this.rs.getString("leagueColor"));
+						match.setLeagueName(this.rs.getString("leagueName"));
+						match.setLeagueURL(this.rs.getString("leagueURL"));
+						match.setLid(this.rs.getInt("lid"));
+						match.setMatchCode(this.rs.getString("matchCode"));
+						match.setMatchDate(Long.valueOf(this.rs
+								.getLong("matchDate")));
+						match.setMid(this.rs.getInt("mid"));
+						match.setMixBidCounts(new JSONArray(this.rs
+								.getString("mixBidCounts")));
+						match.setMixBidScore(this.rs.getString("mixBidScore"));
+						match.setMixHotCounts(new JSONArray(this.rs
+								.getString("mixHotCounts")));
+						match.setMixStatus(new JSONArray(this.rs
+								.getString("mixStatus")));
+						match.setSingleMixStatus(new JSONArray(this.rs
+								.getString("singleMixStatus")));
+						match.setSpTabMix(new JSONArray(this.rs
+								.getString("spTabMix")));
+						match.setStartTime(Long.valueOf(this.rs
+								.getLong("startTime")));
+						match.setStatus(this.rs.getInt("status"));
+						match.setVisitRankInfo(this.rs
+								.getString("visitRankInfo"));
+						match.setZxAnalysisURL(this.rs
+								.getString("zxAnalysisURL"));
+						matchs.add(match);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		return matchs;
+	}
 
 	public void release() {
 		DBConnection.close(this.conn, this.ps, this.rs);

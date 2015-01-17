@@ -9,26 +9,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-	<head>
-		<base href="<%=basePath%>">
-		<title>竞猜篮球大厅</title>
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0"> 
-		<meta http-equiv="keywords" content="梁小满,彩票,竞猜篮球">
-		<meta http-equiv="description" content="This is my page">
-		<!-- 包含头部信息用于适应不同设备 -->
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <!-- 包含 bootstrap 样式表 -->
-	    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.2.0/css/bootstrap.min.css">
-	</head>
-	<body>
-	
+   <head>
+      <title>今日彩票</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- 引入 Bootstrap -->
+      <link href="libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+      <link href="libs/custom/css/basic.css" rel="stylesheet">
+
+      <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+      <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+      <!--[if lt IE 9]>
+         <script src="libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+   </head>
+   <body>
+	<div id="ceiling_banner"><span class="banner-text">专业化彩票分析网站（v1.0）</span></div>
 	<div class="container-fluid">
-		<p class="table-bordered table-hover table-condensed" style="font-style: italic;"><font face="monospace">专业化彩票分析网站（v1.0）</font></p>
+		<p class="table-bordered table-hover table-condensed" style="marigin-top:100px;"></p>
 		<div class="row-fluid">
 			<div class="span12">
 				<table class="table table-bordered table-hover table-condensed">
+					<caption>今日比赛回顾</caption>
 					<thead>
 						<tr>
 							<th>
@@ -84,8 +87,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<div><span>${myTag:getHostRate(match.spTabMix,2,0)}</span></div>
 									</td>
 									<td>
-										<div>${myTag:getHostRate(match.mixBidCounts,1,0)}</span></div>
-										<div>${myTag:getHostRate(match.mixBidCounts,1,1)}</span></div>
+										<div>${myTag:getHostRate(match.mixBidCounts,1,0)}</div>
+										<div>${myTag:getHostRate(match.mixBidCounts,1,1)}</div>
 									</td>
 								</tr>
 							</c:if>
@@ -124,6 +127,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</table>
 			</div>
 		</div>
+	</div>
+	<div class="privacy_link">
+	  <a href="author.html" target="_blank">author</a>
 	</div>
 	<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- 可选: 合并了 Bootstrap JavaScript 插件 -->

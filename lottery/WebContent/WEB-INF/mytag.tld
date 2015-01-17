@@ -43,5 +43,12 @@
          <name>getHostRate</name>   
          <function-class>com.lxm.lottery.util.UFunction</function-class>   
          <function-signature>java.lang.String getHostRate(org.json.JSONArray,int,int)</function-signature>   
+     </function>
+     
+     <function>   
+         <description>get match result by mixBidScore and type </description>   
+         <name>getMatchResult</name>   
+         <function-class>com.lxm.lottery.util.UFunction</function-class>   
+         <function-signature>java.lang.String getMatchResult(java.lang.String,int)</function-signature>   
      </function> 
 </taglib>  

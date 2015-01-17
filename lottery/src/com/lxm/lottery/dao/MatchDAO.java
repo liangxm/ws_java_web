@@ -18,6 +18,8 @@ public interface MatchDAO {
 	public abstract List<Match> findDaliyMatchs() throws MatchDaoException;
 
 	public abstract List<Match> findYesterdayMatchs() throws MatchDaoException;
+	
+	public abstract List<Match> findMatchsByDate(String dateStr) throws MatchDaoException;
 
 	public abstract Match findByPrimaryKey(String paramString)
 			throws MatchDaoException;

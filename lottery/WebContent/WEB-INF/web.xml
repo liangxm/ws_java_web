@@ -40,4 +40,13 @@
 		<servlet-name>yesterdayServlet</servlet-name>
 		<url-pattern>/yesterdayServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>recommendServlet</servlet-name>
+		<servlet-class>com.lxm.lottery.servlet.RecommendServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>recommendServlet</servlet-name>
+		<url-pattern>/recommendServlet</url-pattern>
+	</servlet-mapping>
 </web-app>

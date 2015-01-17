@@ -21,7 +21,7 @@ public class JsonTest {
 	@Test
 	public void test1(){
 		try {  
-			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=");
+			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=2015-01-16");
 			JSONObject jo = new JSONObject(loadData);
 			//WYData data = new WYData();
 			//JsonHelper.toJavaBean(data, jo.toString());
@@ -64,15 +64,15 @@ public class JsonTest {
 				match.setVisitRankInfo(value.getString("visitRankInfo"));
 				match.setZxAnalysisURL(value.getString("zxAnalysisURL"));
                 if(matchDao.findByPrimaryKey(match.getMatchCode())!=null)
-                	continue;
-                matchDao.insert(match);
+                	matchDao.update(match);
+                else
+                	matchDao.insert(match);
             }  
         } catch (JSONException e) {  
             e.printStackTrace();  
         } catch (MatchDaoException e) {
 			e.printStackTrace();
 		}  
-		
 	}
 	
 	@Test

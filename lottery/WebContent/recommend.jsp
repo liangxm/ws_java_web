@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
    <head>
-      <title>昨日彩票</title>
+      <title>今日推荐</title>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <!-- 引入 Bootstrap -->
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<thead>
 						<tr>
 							<th>
-								场次
+								预测结果
 							</th>
 							<th>
 								赛事
@@ -63,7 +63,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<c:forEach items="${list}" var="match" varStatus="var">
 							<c:if test="${var.index % 2 == 0}">
 								<tr class="success">
-									<td><div title="${match.matchCode}">${myTag:substr(match.matchCode,9,12)}</div></td>
+									<td>
+										<div title="${match.matchCode}" style="color:red">
+											<c:if test="${match.zxAnalysisURL == '88888888'}">主胜</c:if>
+											<c:if test="${match.zxAnalysisURL == '4444'}">主负</c:if>
+										</div>
+									</td>
 									<td>${match.leagueName}</td>
 									<td>
 										<div><span>截止时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.buyEndTime)}</span></div>
@@ -104,7 +109,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</c:if>
 							<c:if test="${var.index % 2 != 0}">
 								<tr class="warning">
-									<td>${myTag:substr(match.matchCode,9,12)}</td>
+									<td>
+										<div title="${match.matchCode}" style="color:red">
+											<c:if test="${match.zxAnalysisURL == '88888888'}">主胜</c:if>
+											<c:if test="${match.zxAnalysisURL == '4444'}">主负</c:if>
+										</div>
+									</td>
 									<td>${match.leagueName}</td>
 									<td>
 										<div><span>截止时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.buyEndTime)}</span></div>

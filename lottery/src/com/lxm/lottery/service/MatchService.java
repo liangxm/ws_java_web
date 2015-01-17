@@ -23,4 +23,8 @@ public interface MatchService {
 	  public abstract List<Match> getDaliyMatchList();
 
 	  public abstract List<Match> getYesterdayMatchList();
+	  
+	  public abstract List<Match> getMatchListByDate(String dateStr);
+	  
+	  public abstract List<Match> getDaliyRecommend(String dateStr);
 }

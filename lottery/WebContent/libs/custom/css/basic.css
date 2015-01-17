@@ -1,0 +1,25 @@
+#ceiling_banner {
+	font: 20px 'Open Sans', tahoma, sans-serif, verdana, helvetica, arial;
+	background-color: #3F9BD0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+	padding: 12px 0;
+}
+
+#ceiling_banner .banner-text {
+	color: #fff;
+	font-size: 16px;
+	display: block;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.privacy_link {
+	margin: 0 auto;
+	text-align: center;
+	display: block;
+	background: #d8dfee;
+}

@@ -61,9 +61,17 @@ public class UFunction {
     	return jsonArr.getJSONArray(category).getString(type);
     }
     
+    public static String getMatchResult(String result, int type){
+    	if(result!=null&&result.length()>0){
+    		return result.split("[_]")[type];
+    	}
+    	return "";
+    }
+    
     public static void main(String[] args) throws JSONException{
-    	String s = "[[\"95%\",\"5%\",\"0%\"],[\"97%\",\"3%\",\"0%\"],[\"17%\",\"83%\",\"0%\"]]";
-    	String result = getHostRate(new JSONArray(s),0,0);
-    	System.out.println(result);
+    	//String s = "[[\"95%\",\"5%\",\"0%\"],[\"97%\",\"3%\",\"0%\"],[\"17%\",\"83%\",\"0%\"]]";
+    	//String result = getHostRate(new JSONArray(s),0,0);
+    	String s = "主胜_让分主负_大分_主胜6-10";
+    	System.out.println(getMatchResult(s,0));
     }
 }

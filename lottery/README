@@ -30,3 +30,9 @@ CREATE TABLE IF NOT EXISTS `wangyi_match` (
 	zxAnalysisURL varchar(255),
 	PRIMARY KEY (matchCode)
 ) ENGINE=Myisam DEFAULT CHARSET=utf8;# MySQL 返回的查询结果为空 (即零行)。
+
+CREATE TABLE IF NOT EXISTS `daliy_recommend` (
+	rid int primary key auto_increment,
+	matchCode varchar(255),
+	status tinyint(1) DEFAULT NULL, 
+) ENGINE=Myisam DEFAULT CHARSET=utf8;

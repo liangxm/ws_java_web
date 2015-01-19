@@ -21,7 +21,7 @@ public class WYExtractor extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Timer timer;
 	private static final int delay = 1000*5;
-	private static final int minutes = 1000*60*2;
+	private static final int minutes = 1000*60*30;
 	private MatchService matchService;
 
 	public void init() throws ServletException {

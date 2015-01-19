@@ -49,4 +49,13 @@
 		<servlet-name>recommendServlet</servlet-name>
 		<url-pattern>/recommendServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>recommendReport</servlet-name>
+		<servlet-class>com.lxm.lottery.servlet.RecommendReport</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>recommendReport</servlet-name>
+		<url-pattern>/recommendReport</url-pattern>
+	</servlet-mapping>
 </web-app>

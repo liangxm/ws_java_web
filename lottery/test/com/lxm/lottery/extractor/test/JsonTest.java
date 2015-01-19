@@ -21,7 +21,7 @@ public class JsonTest {
 	@Test
 	public void test1(){
 		try {  
-			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=2015-01-16");
+			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=2015-01-17");
 			JSONObject jo = new JSONObject(loadData);
 			//WYData data = new WYData();
 			//JsonHelper.toJavaBean(data, jo.toString());
@@ -78,8 +78,8 @@ public class JsonTest {
 	@Test
 	public void test2(){
 		MatchService matchService = new MatchServiceImpl();
-		List<Match> list = matchService.getDaliyMatchList();
-		for(Match match:list){
+		List<Match> matchlist = matchService.getDaliyRecommend("2015-01-17");
+		for(Match match:matchlist){
 			System.out.println(match.getMatchCode());
 		}
 	}

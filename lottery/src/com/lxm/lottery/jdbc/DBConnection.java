@@ -16,7 +16,7 @@ public class DBConnection {
 	private static final String DB_USERNAME = SaeUserInfo.getAccessKey();
 	private static final String DB_PASSWORD = SaeUserInfo.getSecretKey();;
 	
-/*    public static Connection getConnection() {
+/*  public static Connection getConnection() {
         Connection con = null;
         try {
             // load the Driver Class

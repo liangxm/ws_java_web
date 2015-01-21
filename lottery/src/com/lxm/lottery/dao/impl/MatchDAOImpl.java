@@ -31,7 +31,8 @@ public class MatchDAOImpl implements MatchDAO {
 	public int insert(Match match) throws MatchDaoException {
 		int result = -1;
 		try {
-			this.conn = DBConnection.getConnection();
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
 			this.ps = this.conn.prepareStatement(INSERT);
 			this.conn.setAutoCommit(false);
 			this.ps.setLong(1, match.getBuyEndTime().longValue());
@@ -73,7 +74,8 @@ public class MatchDAOImpl implements MatchDAO {
 	public int update(Match match) throws MatchDaoException {
 		int result = -1;
 		try {
-			this.conn = DBConnection.getConnection();
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
 			this.ps = this.conn.prepareStatement(UPDATE);
 			this.conn.setAutoCommit(false);
 			this.ps.setString(1, match.getHostRankInfo());
@@ -99,7 +101,8 @@ public class MatchDAOImpl implements MatchDAO {
 	public int delete(String pk) throws MatchDaoException {
 		int result = -1;
 		try {
-			this.conn = DBConnection.getConnection();
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
 			result = this.conn.createStatement().executeUpdate(
 					DELETE + "'" + pk + "'");
 		} catch (SQLException e) {
@@ -111,7 +114,8 @@ public class MatchDAOImpl implements MatchDAO {
 	public List<Match> findAll() throws MatchDaoException {
 		List<Match> matchs = new ArrayList<Match>();
 		try {
-			this.conn = DBConnection.getConnection();
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
 			this.rs = this.conn.createStatement().executeQuery(SELECT_ALL);
 			if (this.rs != null)
 				try {
@@ -170,7 +174,8 @@ public class MatchDAOImpl implements MatchDAO {
 	public Match findByPrimaryKey(String pk) throws MatchDaoException {
 		Match match = null;
 		try {
-			this.conn = DBConnection.getConnection();
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
 			this.rs = this.conn.createStatement().executeQuery(
 					SELECT_BY_PK + "'" + pk + "'");
 			if (this.rs != null)
@@ -229,7 +234,8 @@ public class MatchDAOImpl implements MatchDAO {
 	public List<Match> findDaliyMatchs() throws MatchDaoException {
 		List<Match> matchs = new ArrayList<Match>();
 		try {
-			this.conn = DBConnection.getConnection();
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
 			this.rs = this.conn.createStatement().executeQuery(SELECT_DALIY);
 			if (this.rs != null)
 				try {
@@ -289,7 +295,8 @@ public class MatchDAOImpl implements MatchDAO {
 	public List<Match> findYesterdayMatchs() throws MatchDaoException {
 		List<Match> matchs = new ArrayList<Match>();
 		try {
-			this.conn = DBConnection.getConnection();
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
 			this.rs = this.conn.createStatement().executeQuery(SELECT_PRE_DAY);
 			if (this.rs != null)
 				try {
@@ -345,12 +352,18 @@ public class MatchDAOImpl implements MatchDAO {
 
 		return matchs;
 	}
-	
-	public List<Match> findMatchsByDate(String dateStr) throws MatchDaoException {
+
+	public List<Match> findMatchsByDate(String dateStr)
+			throws MatchDaoException {
 		List<Match> matchs = new ArrayList<Match>();
 		try {
-			this.conn = DBConnection.getConnection();
-			this.rs = this.conn.createStatement().executeQuery("select * from wangyi_match where date_format(LEFT(matchCode,8),'%Y%m%d')=date_format('"+dateStr+"','%Y%m%d')");
+			if (this.conn == null || this.conn.isClosed())
+				this.conn = DBConnection.getConnection();
+			this.rs = this.conn
+					.createStatement()
+					.executeQuery(
+							"select * from wangyi_match where date_format(LEFT(matchCode,8),'%Y%m%d')=date_format('"
+									+ dateStr + "','%Y%m%d')");
 			if (this.rs != null)
 				try {
 					while (this.rs.next()) {

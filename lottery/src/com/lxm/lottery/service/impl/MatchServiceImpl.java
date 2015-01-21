@@ -13,6 +13,7 @@ import com.lxm.lottery.dao.impl.MatchDAOImpl;
 import com.lxm.lottery.exception.MatchDaoException;
 import com.lxm.lottery.model.Match;
 import com.lxm.lottery.service.MatchService;
+import com.lxm.lottery.util.StringUtils;
 
 public class MatchServiceImpl implements MatchService {
 
@@ -46,10 +47,10 @@ public class MatchServiceImpl implements MatchService {
 				JSONObject value = obj.getJSONObject(key);
 				Match match = new Match();
 				match.setBuyEndTime(Long.valueOf(value.getLong("buyEndTime")));
-				match.setGid(value.getInt("gid"));
+				match.setGid(StringUtils.isInteger(value.getString("gid"))?value.getInt("gid"):0);
 				match.setGuestName(value.getString("guestName"));
 				match.setGuestTeamURL(value.getString("guestTeamURL"));
-				match.setHid(value.getInt("hid"));
+				match.setHid(StringUtils.isInteger(value.getString("hid"))?value.getInt("hid"):0);
 				match.setHint(value.getString("hint"));
 				match.setHostName(value.getString("hostName"));
 				match.setHostRankInfo(value.getString("hostRankInfo"));
@@ -58,10 +59,10 @@ public class MatchServiceImpl implements MatchService {
 				match.setLeagueColor(value.getString("leagueColor"));
 				match.setLeagueName(value.getString("leagueName"));
 				match.setLeagueURL(value.getString("leagueURL"));
-				match.setLid(value.getInt("lid"));
+				match.setLid(StringUtils.isInteger(value.getString("lid"))?value.getInt("lid"):0);
 				match.setMatchCode(value.getString("matchCode"));
 				match.setMatchDate(Long.valueOf(value.getLong("matchDate")));
-				match.setMid(value.getInt("mid"));
+				match.setMid(StringUtils.isInteger(value.getString("mid"))?value.getInt("mid"):0);
 				match.setMixBidCounts(new JSONArray(value
 						.getString("mixBidCounts")));
 				match.setMixBidScore(value.getString("mixBidScore"));

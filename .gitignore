@@ -6,3 +6,5 @@
 
 # ignore lottery classes files
 lottery/build
+lottery/WebContent/WEB-INF/classes
+lottery/.classpath

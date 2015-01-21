@@ -5,6 +5,6 @@
 *.[class]
 
 # ignore lottery classes files
-lottery/build
-lottery/WebContent/WEB-INF/classes
+lottery/build/
+lottery/WebContent/WEB-INF/classes/
 lottery/.classpath

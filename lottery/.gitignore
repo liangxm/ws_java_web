@@ -1,0 +1,12 @@
+#ignore .test
+#.test
+#.gitignore
+#ignore obj and lib file
+*.[class]
+
+# ignore lottery classes files
+build/
+WebContent/WEB-INF/classes/
+.project
+.classpath
+.settings/

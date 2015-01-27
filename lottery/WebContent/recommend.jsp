@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${match.leagueName}</td>
 									<td>
 										<div><span>截止时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.buyEndTime)}</span></div>
-										<div><span>开赛时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.matchDate)}</span></div>
+										<div><span>开赛时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.startTime)}</span></div>
 									</td>
 									<td>
 										<div><span>客:</span><span>${match.guestName}(${match.visitRankInfo})</span></div>
@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<td>${match.leagueName}</td>
 									<td>
 										<div><span>截止时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.buyEndTime)}</span></div>
-										<div><span>开赛时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.matchDate)}</span></div>
+										<div><span>开赛时间：</span><span>${myTag:formatDate("yyyy-MM-dd HH:mm",match.startTime)}</span></div>
 									</td>
 									<td>
 										<div><span>客:</span><span>${match.guestName}(${match.visitRankInfo})</span></div>

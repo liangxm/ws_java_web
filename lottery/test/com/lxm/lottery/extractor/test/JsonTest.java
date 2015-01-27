@@ -22,7 +22,7 @@ public class JsonTest {
 	@Test
 	public void test1(){
 		try {  
-			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=2015-01-19");
+			String loadData=HttpRequest.sendGet("http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html", "cache=1420787380503&betDate=2015-01-21");
 			JSONObject jo = new JSONObject(loadData);
 			//WYData data = new WYData();
 			//JsonHelper.toJavaBean(data, jo.toString());

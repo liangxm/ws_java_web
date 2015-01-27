@@ -1,14 +1,17 @@
 package com.lxm.lottery.extractor.test;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexMatches {
-	public static void main(String args[]) {
-		java.util.Date date = new java.util.Date(new Long("1421078220000"));
+	public static void main(String args[]) throws ParseException {
+		//java.util.Date date = new java.util.Date(new Long("1422329400000"));
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:MM:ss");
-		System.out.println(sdf.format(date));
+		java.util.Date date = sdf.parse("2015-01-21 10:00:00");
+		//System.out.println(sdf.format(date));
+		System.out.println("date:"+date.getTime());
 	}
 
 	public static void test1() {

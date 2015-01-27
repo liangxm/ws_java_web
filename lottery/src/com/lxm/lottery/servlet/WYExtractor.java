@@ -1,7 +1,6 @@
 package com.lxm.lottery.servlet;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,6 +26,7 @@ public class WYExtractor extends HttpServlet {
 	private static final int delay = 1000 * 5;
 	private static final int minutes = 1000 * 60 * 30;
 	private MatchService matchService;
+	private boolean flag;
 
 	public void init() throws ServletException {
 		super.init();
@@ -43,9 +43,7 @@ public class WYExtractor extends HttpServlet {
 
 		public void run() {
 			matchService = new MatchServiceImpl();
-			Calendar c = Calendar.getInstance();
-			int hour = c.get(Calendar.HOUR_OF_DAY);
-			if (hour != 8) {
+			if (!flag) {
 				String loadData = HttpRequest
 						.sendGet(
 								"http://caipiao.163.com/order/preBet_jclqNewMixAllAjax.html",

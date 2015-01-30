@@ -1,0 +1,13 @@
+/*  
+	*@Description: 理财详情
+	*@Author:      Samuel Shen
+	*@Update:      Samuel Shen(2013-10-12)  
+*/
+.finances_title{
+	text-align: center;
+}
+.finances_title span{
+	font-size: 16px;
+	font-weight: bold;
+	margin-right: 10px;
+}

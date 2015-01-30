@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- mybatis pager configuration -->
+	<properties>
+		<property name="dialect" value="mysql" />
+		<property name="pageSqlId" value=".*Page$" />
+	</properties>
+	 <typeAliases>
+  		<package name="com.fm.domain.pojo"/>
+	</typeAliases>
+	<plugins>
+		<plugin interceptor="com.fm.dao.comn.pagi.PageInterceptor"></plugin>
+	</plugins>
+	
+	<!-- 配置mapper采用package的方式不起作用 -->
+	<mappers>
+	    <!-- 系统类配置 -->
+	    <mapper resource="com/fm/config/mybatis/mapper/FinancialMapper.xml" />
+	</mappers>
+	
+</configuration>

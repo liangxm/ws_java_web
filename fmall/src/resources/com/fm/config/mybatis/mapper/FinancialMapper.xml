@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fm.dao.intf.FinancialDao">
+	<resultMap id="BaseResultMap" type="com.fm.domain.pojo.Financial" >
+	    <id column="financial_id" property="financialId" jdbcType="CHAR" />
+	    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+	    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+	    <result column="product_type" property="productType" jdbcType="VARCHAR" />
+	    <result column="income_type" property="incomeType" jdbcType="VARCHAR" />
+	    <result column="risk_level" property="riskLevel" jdbcType="VARCHAR" />
+	    <result column="risk_preference" property="riskPreference" jdbcType="VARCHAR" />
+	    <result column="keep_principal" property="keepPrincipal" jdbcType="VARCHAR" />
+	    <result column="currency" property="currency" jdbcType="VARCHAR" />
+	    <result column="bank" property="bank" jdbcType="VARCHAR" />
+	    <result column="entrust_manage_period" property="entrustManagePeriod" jdbcType="VARCHAR" />
+	    <result column="income_rate" property="incomeRate" jdbcType="VARCHAR" />
+	    <result column="sales_start_date" property="salesStartDate" jdbcType="VARCHAR" />
+	    <result column="sales_end_date" property="salesEndDate" jdbcType="VARCHAR" />
+	    <result column="income_start_date" property="incomeStartDate" jdbcType="VARCHAR" />
+	    <result column="income_end_date" property="incomeEndDate" jdbcType="VARCHAR" />
+	    <result column="investments_amt" property="investmentsAmt" jdbcType="VARCHAR" />
+	    <result column="sales_region" property="salesRegion" jdbcType="VARCHAR" />
+	    <result column="investment_targets" property="investmentTargets" jdbcType="VARCHAR" />
+	    <result column="actual_annual_yield" property="actualAnnualYield" jdbcType="VARCHAR" />
+	    <result column="income_calculate" property="incomeCalculate" jdbcType="VARCHAR" />
+	    <result column="investment_direction_desc" property="investmentDirectionDesc" jdbcType="VARCHAR" />
+	    <result column="risk_warning" property="riskWarning" jdbcType="VARCHAR" />
+	    <result column="financial_nominal_val" property="financialNominalVal" jdbcType="VARCHAR" />
+	    <result column="entrust_start_amt" property="entrustStartAmt" jdbcType="VARCHAR" />
+	    <result column="entrust_amt_incre_unit" property="entrustAmtIncreUnit" jdbcType="VARCHAR" />
+	    <result column="buy_way" property="buyWay" jdbcType="VARCHAR" />
+	    <result column="float_manage_fee_desc" property="floatManageFeeDesc" jdbcType="VARCHAR" />
+	    <result column="bill_query" property="billQuery" jdbcType="VARCHAR" />
+	    <result column="income_pay_period" property="incomePayPeriod" jdbcType="VARCHAR" />
+	    <result column="auto_terminate_flag" property="autoTerminateFlag" jdbcType="CHAR" />
+	    <result column="auto_terminate_condition" property="autoTerminateCondition" jdbcType="VARCHAR" />
+	    <result column="bank_terminate_flag" property="bankTerminateFlag" jdbcType="CHAR" />
+	    <result column="bank_terminate_desc" property="bankTerminateDesc" jdbcType="VARCHAR" />
+	    <result column="client_redemption_flag" property="clientRedemptionFlag" jdbcType="CHAR" />
+	    <result column="client_redemption_condition" property="clientRedemptionCondition" jdbcType="VARCHAR" />
+	    <result column="date_created" property="dateCreated" jdbcType="VARCHAR" />
+	    <result column="date_modified" property="dateModified" jdbcType="VARCHAR" />
+	    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+	    <result column="modified_by" property="modifiedBy" jdbcType="VARCHAR" />
+	    <result column="deleted" property="deleted" jdbcType="CHAR" />
+	    <result column="version" property="version" jdbcType="CHAR" />
+    </resultMap>
+    
+	<sql id="Base_Column_List" >
+	  financial_id, product_name, product_code, product_type, income_type, risk_level, 
+	  risk_preference, keep_principal, currency, bank, entrust_manage_period, income_rate, 
+	  sales_start_date, sales_end_date, income_start_date, income_end_date, investments_amt, 
+	  sales_region, investment_targets, actual_annual_yield, income_calculate, investment_direction_desc, 
+	  risk_warning, financial_nominal_val, entrust_start_amt, entrust_amt_incre_unit, buy_way, 
+	  float_manage_fee_desc, bill_query, income_pay_period, auto_terminate_flag, auto_terminate_condition, 
+	  bank_terminate_flag, bank_terminate_desc, client_redemption_flag, client_redemption_condition, 
+	  date_created, date_modified, created_by, modified_by, deleted, version
+	</sql>
+	
+	<select id="count" resultType="int">
+		select count(*) c from financial
+	</select>
+	
+	<select id="selectPk" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select
+		<include refid="Base_Column_List" />
+		from financial
+		where financial_id = #{financialId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="select" resultMap="BaseResultMap" resultType="java.util.List">
+		select
+		<include refid="Base_Column_List" />
+		from financial
+	</select>
+	
+	<select id="selectPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from financial
+		<where>
+			<if test="productName != null">
+				product_name = #{productName}
+			</if>
+			<if test="productCode != null">
+				and product_code = #{productCode}
+			</if>
+			<if test="productType != null">
+				and product_type = #{productType}
+			</if>
+			<if test="incomeType != null">
+				and income_type like '%${incomeType}%'
+			</if>
+			<if test="riskLevel != null">
+				and risk_level = #{riskLevel}
+			</if>
+			<if test="riskPreference != null">
+				and risk_preference = #{riskPreference}
+			</if>
+			<if test="keepPrincipal != null">
+				and keep_principal = #{keepPrincipal}
+			</if>
+			<if test="currency != null">
+				and currency = #{currency}
+			</if>
+			<if test="bank != null">
+				and bank = #{bank}
+			</if>
+			<if test="entrustManagePeriod2 != null">
+				and (cast(entrust_manage_period as signed) BETWEEN #{entrustManagePeriod1} AND #{entrustManagePeriod2})
+			</if>
+			<if test="incomeRate2 != null">
+				and (income_rate BETWEEN #{incomeRate1} AND #{incomeRate2})
+			</if>
+			<if test="salesStartDate2 != null">
+				and (sales_start_date BETWEEN #{salesStartDate1} AND #{salesStartDate2})
+			</if>
+			<if test="salesEndDate != null">
+				and sales_end_date = #{salesEndDate}
+			</if>
+			<if test="incomeStartDate != null">
+				and income_start_date = #{incomeStartDate}
+			</if>
+			<if test="incomeEndDate != null">
+				and income_end_date = #{incomeEndDate}
+			</if>
+			<if test="investmentsAmt2 != null">
+				and (cast(investments_amt as signed) BETWEEN #{investmentsAmt1} AND #{investmentsAmt2})
+			</if>
+			<if test="salesRegion != null">
+				and sales_region like '%${salesRegion}%'
+			</if>
+			<if test="investmentTargets != null">
+				and investment_targets = #{investmentTargets}
+			</if>
+			<if test="actualAnnualYield != null">
+				and actual_annual_yield = #{actualAnnualYield}
+			</if>
+			<if test="incomeCalculate != null">
+				and income_calculate = #{incomeCalculate}
+			</if>
+			<if test="investmentDirectionDesc != null">
+				and investment_direction_desc = #{investmentDirectionDesc}
+			</if>
+			<if test="riskWarning != null">
+				and risk_warning = #{riskWarning}
+			</if>
+			<if test="financialNominalVal != null">
+				and financial_nominal_val = #{financialNominalVal}
+			</if>
+			<if test="entrustStartAmt != null">
+				and entrust_start_amt = #{entrustStartAmt}
+			</if>
+			<if test="entrustAmtIncreUnit != null">
+				and entrust_amt_incre_unit = #{entrustAmtIncreUnit}
+			</if>
+			<if test="buyWay != null">
+				and buy_way = #{buyWay}
+			</if>
+			<if test="floatManageFeeDesc != null">
+				and float_manage_fee_desc = #{floatManageFeeDesc}
+			</if>
+			<if test="billQuery != null">
+				and bill_query = #{billQuery}
+			</if>
+			<if test="incomePayPeriod != null">
+				and income_pay_period = #{incomePayPeriod}
+			</if>
+			<if test="autoTerminateFlag != null">
+				and auto_terminate_flag = #{autoTerminateFlag}
+			</if>
+			<if test="autoTerminateCondition != null">
+				and auto_terminate_condition = #{autoTerminateCondition}
+			</if>
+			<if test="bankTerminateFlag != null">
+				and bank_terminate_flag = #{bankTerminateFlag}
+			</if>
+			<if test="bankTerminateDesc != null">
+				and bank_terminate_desc = #{bankTerminateDesc}
+			</if>
+			<if test="clientRedemptionFlag != null">
+				and client_redemption_flag = #{clientRedemptionFlag}
+			</if>
+			<if test="clientRedemptionCondition != null">
+				and client_redemption_condition = #{clientRedemptionCondition}
+			</if>
+		</where>
+	</select>
+
+	<delete id="delete" parameterType="java.lang.Integer">
+		delete from financial
+		where financial_id = #{financialId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.fm.domain.pojo.Financial" >
+    insert into financial (financial_id, product_name, product_code, 
+      product_type, income_type, risk_level, 
+      risk_preference, keep_principal, currency, 
+      bank, entrust_manage_period, income_rate, 
+      sales_start_date, sales_end_date, income_start_date, 
+      income_end_date, investments_amt, sales_region, 
+      investment_targets, actual_annual_yield, income_calculate, 
+      investment_direction_desc, risk_warning, financial_nominal_val, 
+      entrust_start_amt, entrust_amt_incre_unit, buy_way, 
+      float_manage_fee_desc, bill_query, income_pay_period, 
+      auto_terminate_flag, auto_terminate_condition, 
+      bank_terminate_flag, bank_terminate_desc, client_redemption_flag, 
+      client_redemption_condition, date_created, 
+      date_modified, created_by, modified_by, 
+      deleted, version)
+    values (#{financialId,jdbcType=CHAR}, #{productName,jdbcType=VARCHAR}, #{productCode,jdbcType=VARCHAR}, 
+      #{productType,jdbcType=VARCHAR}, #{incomeType,jdbcType=VARCHAR}, #{riskLevel,jdbcType=VARCHAR}, 
+      #{riskPreference,jdbcType=VARCHAR}, #{keepPrincipal,jdbcType=VARCHAR}, #{currency,jdbcType=VARCHAR}, 
+      #{bank,jdbcType=VARCHAR}, #{entrustManagePeriod,jdbcType=VARCHAR}, #{incomeRate,jdbcType=VARCHAR}, 
+      #{salesStartDate,jdbcType=VARCHAR}, #{salesEndDate,jdbcType=VARCHAR}, #{incomeStartDate,jdbcType=VARCHAR}, 
+      #{incomeEndDate,jdbcType=VARCHAR}, #{investmentsAmt,jdbcType=VARCHAR}, #{salesRegion,jdbcType=VARCHAR}, 
+      #{investmentTargets,jdbcType=VARCHAR}, #{actualAnnualYield,jdbcType=VARCHAR}, #{incomeCalculate,jdbcType=VARCHAR}, 
+      #{investmentDirectionDesc,jdbcType=VARCHAR}, #{riskWarning,jdbcType=VARCHAR}, #{financialNominalVal,jdbcType=VARCHAR}, 
+      #{entrustStartAmt,jdbcType=VARCHAR}, #{entrustAmtIncreUnit,jdbcType=VARCHAR}, #{buyWay,jdbcType=VARCHAR}, 
+      #{floatManageFeeDesc,jdbcType=VARCHAR}, #{billQuery,jdbcType=VARCHAR}, #{incomePayPeriod,jdbcType=VARCHAR}, 
+      #{autoTerminateFlag,jdbcType=CHAR}, #{autoTerminateCondition,jdbcType=VARCHAR}, 
+      #{bankTerminateFlag,jdbcType=CHAR}, #{bankTerminateDesc,jdbcType=VARCHAR}, #{clientRedemptionFlag,jdbcType=CHAR}, 
+      #{clientRedemptionCondition,jdbcType=VARCHAR}, #{dateCreated,jdbcType=VARCHAR}, 
+      #{dateModified,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, #{modifiedBy,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=CHAR}, #{version,jdbcType=CHAR})
+   </insert>
+	<insert id="insertSelective" parameterType="com.fm.domain.pojo.Financial">
+		insert into financial
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="financialId != null">
+				financial_id,
+			</if>
+			<if test="productName != null">
+				product_name,
+			</if>
+			<if test="productCode != null">
+				product_code,
+			</if>
+			<if test="productType != null">
+				product_type,
+			</if>
+			<if test="incomeType != null">
+				income_type,
+			</if>
+			<if test="riskLevel != null">
+				risk_level,
+			</if>
+			<if test="riskPreference != null">
+				risk_preference,
+			</if>
+			<if test="keepPrincipal != null">
+				keep_principal,
+			</if>
+			<if test="currency != null">
+				currency,
+			</if>
+			<if test="bank != null">
+				bank,
+			</if>
+			<if test="entrustManagePeriod != null">
+				entrust_manage_period,
+			</if>
+			<if test="incomeRate != null">
+				income_rate,
+			</if>
+			<if test="salesStartDate != null">
+				sales_start_date,
+			</if>
+			<if test="salesEndDate != null">
+				sales_end_date,
+			</if>
+			<if test="incomeStartDate != null">
+				income_start_date,
+			</if>
+			<if test="incomeEndDate != null">
+				income_end_date,
+			</if>
+			<if test="investmentsAmt != null">
+				investments_amt,
+			</if>
+			<if test="salesRegion != null">
+				sales_region,
+			</if>
+			<if test="investmentTargets != null">
+				investment_targets,
+			</if>
+			<if test="actualAnnualYield != null">
+				actual_annual_yield,
+			</if>
+			<if test="incomeCalculate != null">
+				income_calculate,
+			</if>
+			<if test="investmentDirectionDesc != null">
+				investment_direction_desc,
+			</if>
+			<if test="riskWarning != null">
+				risk_warning,
+			</if>
+			<if test="financialNominalVal != null">
+				financial_nominal_val,
+			</if>
+			<if test="entrustStartAmt != null">
+				entrust_start_amt,
+			</if>
+			<if test="entrustAmtIncreUnit != null">
+				entrust_amt_incre_unit,
+			</if>
+			<if test="buyWay != null">
+				buy_way,
+			</if>
+			<if test="floatManageFeeDesc != null">
+				float_manage_fee_desc,
+			</if>
+			<if test="billQuery != null">
+				bill_query,
+			</if>
+			<if test="incomePayPeriod != null">
+				income_pay_period,
+			</if>
+			<if test="autoTerminateFlag != null">
+				auto_terminate_flag,
+			</if>
+			<if test="autoTerminateCondition != null">
+				auto_terminate_condition,
+			</if>
+			<if test="bankTerminateFlag != null">
+				bank_terminate_flag,
+			</if>
+			<if test="bankTerminateDesc != null">
+				bank_terminate_desc,
+			</if>
+			<if test="clientRedemptionFlag != null">
+				client_redemption_flag,
+			</if>
+			<if test="clientRedemptionCondition != null">
+				client_redemption_condition,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="financialId != null">
+				#{financialId,jdbcType=INTEGER},
+			</if>
+			<if test="productName != null">
+				#{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productCode != null">
+				#{productCode,jdbcType=VARCHAR},
+			</if>
+			<if test="productType != null">
+				#{productType,jdbcType=VARCHAR},
+			</if>
+			<if test="incomeType != null">
+				#{incomeType,jdbcType=VARCHAR},
+			</if>
+			<if test="riskLevel != null">
+				#{riskLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="riskPreference != null">
+				#{riskPreference,jdbcType=VARCHAR},
+			</if>
+			<if test="keepPrincipal != null">
+				#{keepPrincipal,jdbcType=BIT},
+			</if>
+			<if test="currency != null">
+				#{currency,jdbcType=VARCHAR},
+			</if>
+			<if test="bank != null">
+				#{bank,jdbcType=VARCHAR},
+			</if>
+			<if test="entrustManagePeriod != null">
+				#{entrustManagePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="incomeRate != null">
+				#{incomeRate,jdbcType=VARCHAR},
+			</if>
+			<if test="salesStartDate != null">
+				#{salesStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="salesEndDate != null">
+				#{salesEndDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="incomeStartDate != null">
+				#{incomeStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="incomeEndDate != null">
+				#{incomeEndDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="investmentsAmt != null">
+				#{investmentsAmt,jdbcType=VARCHAR},
+			</if>
+			<if test="salesRegion != null">
+				#{salesRegion,jdbcType=VARCHAR},
+			</if>
+			<if test="investmentTargets != null">
+				#{investmentTargets,jdbcType=VARCHAR},
+			</if>
+			<if test="actualAnnualYield != null">
+				#{actualAnnualYield,jdbcType=VARCHAR},
+			</if>
+			<if test="incomeCalculate != null">
+				#{incomeCalculate,jdbcType=VARCHAR},
+			</if>
+			<if test="investmentDirectionDesc != null">
+				#{investmentDirectionDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="riskWarning != null">
+				#{riskWarning,jdbcType=VARCHAR},
+			</if>
+			<if test="financialNominalVal != null">
+				#{financialNominalVal,jdbcType=VARCHAR},
+			</if>
+			<if test="entrustStartAmt != null">
+				#{entrustStartAmt,jdbcType=VARCHAR},
+			</if>
+			<if test="entrustAmtIncreUnit != null">
+				#{entrustAmtIncreUnit,jdbcType=INTEGER},
+			</if>
+			<if test="buyWay != null">
+				#{buyWay,jdbcType=VARCHAR},
+			</if>
+			<if test="floatManageFeeDesc != null">
+				#{floatManageFeeDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="billQuery != null">
+				#{billQuery,jdbcType=VARCHAR},
+			</if>
+			<if test="incomePayPeriod != null">
+				#{incomePayPeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="autoTerminateFlag != null">
+				#{autoTerminateFlag,jdbcType=BIT},
+			</if>
+			<if test="autoTerminateCondition != null">
+				#{autoTerminateCondition,jdbcType=VARCHAR},
+			</if>
+			<if test="bankTerminateFlag != null">
+				#{bankTerminateFlag,jdbcType=BIT},
+			</if>
+			<if test="bankTerminateDesc != null">
+				#{bankTerminateDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="clientRedemptionFlag != null">
+				#{clientRedemptionFlag,jdbcType=BIT},
+			</if>
+			<if test="clientRedemptionCondition != null">
+				#{clientRedemptionCondition,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fm.domain.pojo.Financial">
+		update financial
+		<set>
+			<if test="productName != null">
+				product_name = #{productName,jdbcType=VARCHAR},
+			</if>
+			<if test="productCode != null">
+				product_code = #{productCode,jdbcType=VARCHAR},
+			</if>
+			<if test="productType != null">
+				product_type = #{productType,jdbcType=VARCHAR},
+			</if>
+			<if test="incomeType != null">
+				income_type = #{incomeType,jdbcType=VARCHAR},
+			</if>
+			<if test="riskLevel != null">
+				risk_level = #{riskLevel,jdbcType=VARCHAR},
+			</if>
+			<if test="riskPreference != null">
+				risk_preference = #{riskPreference,jdbcType=VARCHAR},
+			</if>
+			<if test="keepPrincipal != null">
+				keep_principal = #{keepPrincipal,jdbcType=BIT},
+			</if>
+			<if test="currency != null">
+				currency = #{currency,jdbcType=VARCHAR},
+			</if>
+			<if test="bank != null">
+				bank = #{bank,jdbcType=VARCHAR},
+			</if>
+			<if test="entrustManagePeriod != null">
+				entrust_manage_period = #{entrustManagePeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="incomeRate != null">
+				income_rate = #{incomeRate,jdbcType=VARCHAR},
+			</if>
+			<if test="salesStartDate != null">
+				sales_start_date = #{salesStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="salesEndDate != null">
+				sales_end_date = #{salesEndDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="incomeStartDate != null">
+				income_start_date = #{incomeStartDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="incomeEndDate != null">
+				income_end_date = #{incomeEndDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="investmentsAmt != null">
+				investments_amt = #{investmentsAmt,jdbcType=VARCHAR},
+			</if>
+			<if test="salesRegion != null">
+				sales_region = #{salesRegion,jdbcType=VARCHAR},
+			</if>
+			<if test="investmentTargets != null">
+				investment_targets = #{investmentTargets,jdbcType=VARCHAR},
+			</if>
+			<if test="actualAnnualYield != null">
+				actual_annual_yield = #{actualAnnualYield,jdbcType=VARCHAR},
+			</if>
+			<if test="incomeCalculate != null">
+				income_calculate = #{incomeCalculate,jdbcType=VARCHAR},
+			</if>
+			<if test="investmentDirectionDesc != null">
+				investment_direction_desc =
+				#{investmentDirectionDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="riskWarning != null">
+				risk_warning = #{riskWarning,jdbcType=VARCHAR},
+			</if>
+			<if test="financialNominalVal != null">
+				financial_nominal_val = #{financialNominalVal,jdbcType=VARCHAR},
+			</if>
+			<if test="entrustStartAmt != null">
+				entrust_start_amt = #{entrustStartAmt,jdbcType=VARCHAR},
+			</if>
+			<if test="entrustAmtIncreUnit != null">
+				entrust_amt_incre_unit = #{entrustAmtIncreUnit,jdbcType=INTEGER},
+			</if>
+			<if test="buyWay != null">
+				buy_way = #{buyWay,jdbcType=VARCHAR},
+			</if>
+			<if test="floatManageFeeDesc != null">
+				float_manage_fee_desc = #{floatManageFeeDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="billQuery != null">
+				bill_query = #{billQuery,jdbcType=VARCHAR},
+			</if>
+			<if test="incomePayPeriod != null">
+				income_pay_period = #{incomePayPeriod,jdbcType=VARCHAR},
+			</if>
+			<if test="autoTerminateFlag != null">
+				auto_terminate_flag = #{autoTerminateFlag,jdbcType=BIT},
+			</if>
+			<if test="autoTerminateCondition != null">
+				auto_terminate_condition =
+				#{autoTerminateCondition,jdbcType=VARCHAR},
+			</if>
+			<if test="bankTerminateFlag != null">
+				bank_terminate_flag = #{bankTerminateFlag,jdbcType=BIT},
+			</if>
+			<if test="bankTerminateDesc != null">
+				bank_terminate_desc = #{bankTerminateDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="clientRedemptionFlag != null">
+				client_redemption_flag = #{clientRedemptionFlag,jdbcType=BIT},
+			</if>
+			<if test="clientRedemptionCondition != null">
+				client_redemption_condition =
+				#{clientRedemptionCondition,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where financial_id = #{financialId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.fm.domain.pojo.Financial">
+		update financial
+		set product_name = #{productName,jdbcType=VARCHAR},
+		product_code = #{productCode,jdbcType=VARCHAR},
+		product_type = #{productType,jdbcType=VARCHAR},
+		income_type = #{incomeType,jdbcType=VARCHAR},
+		risk_level = #{riskLevel,jdbcType=VARCHAR},
+		risk_preference = #{riskPreference,jdbcType=VARCHAR},
+		keep_principal = #{keepPrincipal,jdbcType=BIT},
+		currency = #{currency,jdbcType=VARCHAR},
+		bank = #{bank,jdbcType=VARCHAR},
+		entrust_manage_period = #{entrustManagePeriod,jdbcType=VARCHAR},
+		income_rate = #{incomeRate,jdbcType=VARCHAR},
+		sales_start_date = #{salesStartDate,jdbcType=TIMESTAMP},
+		sales_end_date = #{salesEndDate,jdbcType=TIMESTAMP},
+		income_start_date = #{incomeStartDate,jdbcType=TIMESTAMP},
+		income_end_date = #{incomeEndDate,jdbcType=TIMESTAMP},
+		investments_amt = #{investmentsAmt,jdbcType=VARCHAR},
+		sales_region = #{salesRegion,jdbcType=VARCHAR},
+		investment_targets = #{investmentTargets,jdbcType=VARCHAR},
+		actual_annual_yield = #{actualAnnualYield,jdbcType=VARCHAR},
+		income_calculate = #{incomeCalculate,jdbcType=VARCHAR},
+		investment_direction_desc = #{investmentDirectionDesc,jdbcType=VARCHAR},
+		risk_warning = #{riskWarning,jdbcType=VARCHAR},
+		financial_nominal_val = #{financialNominalVal,jdbcType=VARCHAR},
+		entrust_start_amt = #{entrustStartAmt,jdbcType=VARCHAR},
+		entrust_amt_incre_unit = #{entrustAmtIncreUnit,jdbcType=INTEGER},
+		buy_way = #{buyWay,jdbcType=VARCHAR},
+		float_manage_fee_desc = #{floatManageFeeDesc,jdbcType=VARCHAR},
+		bill_query = #{billQuery,jdbcType=VARCHAR},
+		income_pay_period = #{incomePayPeriod,jdbcType=VARCHAR},
+		auto_terminate_flag = #{autoTerminateFlag,jdbcType=BIT},
+		auto_terminate_condition = #{autoTerminateCondition,jdbcType=VARCHAR},
+		bank_terminate_flag = #{bankTerminateFlag,jdbcType=BIT},
+		bank_terminate_desc = #{bankTerminateDesc,jdbcType=VARCHAR},
+		client_redemption_flag = #{clientRedemptionFlag,jdbcType=BIT},
+		client_redemption_condition = #{clientRedemptionCondition,jdbcType=VARCHAR}
+		where financial_id = #{financialId,jdbcType=INTEGER}
+	</update>
+</mapper>

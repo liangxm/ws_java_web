@@ -1,0 +1,110 @@
+/*  
+	*@Description: 理财产品
+	*@Author:      Smily Liang
+	*@Update:      Smily Liang(2013-10-12)  
+*/
+
+/*列表区*/
+#main_content .content_title li>span, #main_content .content_list li>span{
+	position: static;
+	white-space: normal;
+}
+
+#main_content .content_title {
+	height: auto;
+	line-height: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#main_content .content_title li,#main_content .content_list li{
+	height: auto;
+	line-height: 20px;
+}
+
+.contentList_compare {
+	float: left;
+	width: 4%;
+}
+
+.contentList_name{
+	float: left;
+	width: 40%;
+}
+.content_title .contentList_name{
+	line-height: 40px;
+}
+.content_list .contentList_name{
+	text-align: left;
+}
+.contentList_bank{
+	/*left: 29%;*/
+	float: left;
+	width: 10%;
+}
+.content_title .contentList_bank{
+	line-height: 40px;
+}
+.contentList_start{
+	/*left: 37%;*/
+	float: left;
+	width: 10%;
+}
+.contentList_date{
+	/*left: 45%;*/
+	float: left;
+	width: 19%;
+}
+.content_list .contentList_date{
+	line-height: 15px;
+}
+
+.contentList_deadline{
+	/*left: 53%;*/
+	float: left;
+	width: 7%;
+}
+.content_list .contentList_deadline{
+	line-height: 15px;
+}
+.contentList_rate{
+	/*left: 75%;*/
+	float: left;
+	width: 13%;
+}
+.content_list .contentList_rate{
+	color: red;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: times new roman;
+}
+
+.contentList_risk{
+	/*left: 58%;*/
+	float: left;
+	width: 7%;
+}
+.contentList_mobility{
+	/*left: 63%;*/
+	float: left;
+	width: 8%;
+}
+.contentList_preservation{
+	/*left: 70%;*/
+	float: left;
+	width: 8%;
+}
+
+.contentList_operate{
+	/*left: 85%;*/
+	float: left;
+	width: 9%;
+}
+
+.product_title {
+
+}
+
+#mainad{
+	list-style: square;
+}
